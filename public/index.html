@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="./js/bundle.js"></script>
+
+  <title>Document</title>
+
+</head>
+<body>
+
+  <div class="" id="app">
+
+    <h1>Convert from Euros into a selected currency</h1>
+    <label for="eur-amount">Amount in EUR: </label>
+    <input id="eur-amount" type="number" v-model.number="eurInput" required>
+
+    <label for="chosen-currency">Choose currency: </label>
+
+    <!-- make sure the full currency obj {'GBP': 1.47} is binded to chosenCurrency  -->
+    <select id="chosen-currency" v-if="currencies" v-model.object="chosenCurrency">
+
+      <!-- working version: -->
+            <option v-bind:value="value" v-for="(value, key) in currencies.rates">{{ key }}</option>
+    </select>
+
+    <h2>Converted amount(EUR to {{chosenCurrency.value}}): {{calculateConversion()}} </h2>
+<hr>
+
+
+<h1>Convert from a selected currency into Euros</h1>
+
+<label for="chosen-currency">Choose currency: </label>
+<select id="chosen-currency" v-if="currencies" v-model.number="chosenCurrency">
+  <option v-bind:value="value" v-for="(value, key) in currencies.rates">{{ key }}</option>
+</select>
+
+<label for="eur-amount">Amount: </label>
+<input id="eur-amount" type="number" v-model.number="eurInput" required>
+
+
+
+<h2>Converted amount: {{calculateConversion()}} </h2>
+
+
+<hr>
+    <h1>All currencies:</h1>
+    <!-- The directive v-if is used to conditionally render a block. The block will only be rendered if the directive’s expression returns a truthy value. -->
+    <ul v-if="currencies">
+      <li v-for="(value, key) in currencies.rates">{{key}} --- {{value}}</li>
+    </ul>
+
+
+  </div>
+
+
+</body>
+</html>
